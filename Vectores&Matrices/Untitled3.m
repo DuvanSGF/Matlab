@@ -21,21 +21,22 @@ disp(A)
 fliplr(A)
 flipud(A)
 
-
-B= reshape(x,[3,2]) %filas,Columnas
+A = 1:10;
+B= reshape(A,[5,2]) %filas,Columnas
 rot90(A)
 %n veces
 rot90(A,2)
 B = [1:5]
 rot90(B)
 
+A = [5 -4 1 0 0; -4 6 -4 1 0; 1 -4 6 -4 1; 0 1 -4 6 -4; 0 0 1 -4 6]
 %Raiz cuadradad matroz
-sqrtm(A)
+X = sqrtm(A)
 
 %Valor Individualds 
 sqrt(A)
 
-A = rand(3,4,5)% filas , columas , cantidad
+A = rand(2,3,4)% filas , columas , cantidad
 B = permute(A,[3 2 1]);% Me cambia el orden de las dimensiones en este caso filas, coulminas y cantidad
 size(B)
 
@@ -86,9 +87,14 @@ roots(v)
 q = poly(v)
 conv(p,q)
 
+
+u = [1 0 1];
+v = [2 7];
+
+w = conv(u,v)
 %% Division de un polinomio
 deconv 
-S = conv(p,q)
+S = conv(u,q)
 deconv (S,q)
 
 disp(w)
