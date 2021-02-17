@@ -22,7 +22,7 @@ function varargout = Parcial(varargin)
 
 % Edit the above text to modify the response to help Parcial
 
-% Last Modified by GUIDE v2.5 16-Feb-2021 21:58:52
+% Last Modified by GUIDE v2.5 17-Feb-2021 00:49:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -75,13 +75,53 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in INDuploadcsv.
 function INDuploadcsv_Callback(hObject, eventdata, handles)
-% hObject    handle to INDuploadcsv (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+% Cargamos la tabla con el csv
 data = csvread('data.csv')
 set(handles.INDuitable1,'Data',data);
 
-% --- Executes on button press in pushbutton2.
-function pushbutton2_Callback(hObject, eventdata, handles)
+% --- Executes on button press in INDcleantable.
+function INDcleantable_Callback(hObject, eventdata, handles)
+% Limipiamos la tabla
+set(handles.INDuitable1, 'Data', cell(size(get(handles.INDuitable1,'Data'))));
+
+
+% --- Executes on selection change in INDlistbox1.
+function INDlistbox1_Callback(hObject, eventdata, handles)
 data = csvread('data.csv')
-set(handles.INDuitable1,'Data',data);
+opc = get(hObject,'Value')
+
+x = data(:,1);
+if opc == 1
+ y = data(:,2);
+elseif opc == 2
+ y = data(:,3);
+ elseif opc == 3
+ y = data(:,4);
+ elseif opc == 4
+ y = data(:,5);
+else
+ y = data(:,6);
+end
+plot(handles.axes1,x,y,'--m');
+title('Medicion Humedad')
+xlabel('Lectura ')
+ylabel('Medicion %')
+
+% --- Executes during object creation, after setting all properties.
+function INDlistbox1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to INDlistbox1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in INDactivGrid.
+function INDactivGrid_Callback(hObject, eventdata, handles)
+% Activo la Grid
+set(handles.axes1,'XGrid','On');
+set(handles.axes1,'YGrid','On');
